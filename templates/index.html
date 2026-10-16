@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f8ff">
+    <meta name="description" content="Remove image backgrounds with AI, preview custom colors or images, and download transparent PNGs for free.">
+    <title>{{ settings.logo_text or 'CleanCut' }} — AI Background Remover</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='6') }}">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="{{ settings.logo_text or 'CleanCut' }} home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <span>{{ settings.logo_text or 'CleanCut' }}</span>
+      </a>
+      <nav class="top-nav" aria-label="Main navigation">
+        <a href="#how-it-works">How it works</a>
+        <a href="#faq">FAQ</a>
+        <a href="/about">About</a>
+      </nav>
+      <span class="top-note"><span class="status-dot"></span> Free AI photo editor</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="eyebrow"><span></span> AI-powered image editing</div>
+        <h1 id="page-title">Make your subject<br><span>stand out.</span></h1>
+        <p class="intro">Remove an image background in seconds. Preview the cutout on a custom color or photo, then download the result.</p>
+
+        <section class="workspace" aria-label="Background remover">
+          <div class="upload-panel" id="drop-zone">
+            <input id="image-input" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+            <label class="upload-content" id="upload-content" for="image-input" tabindex="0">
+              <div class="upload-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none"><path d="M24 32V9m0 0-9 9m9-9 9 9M10 29v8a3 3 0 0 0 3 3h22a3 3 0 0 0 3-3v-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h2>Drop an image to get started</h2>
+              <p>Drag and drop a photo here, or choose a file</p>
+              <span class="upload-cta">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 13V3m0 0L6 7m4-4 4 4M4 12v4h12v-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Choose an image
+              </span>
+              <span class="file-note">JPG, PNG, or WebP · Up to 10 MB</span>
+            </label>
+            <div class="preview-content" id="preview-content" hidden>
+              <img id="preview-image" alt="Preview of your uploaded image">
+              <div class="file-details">
+                <span id="file-name"></span>
+                <button class="text-button" id="change-button" type="button">Change image</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <p class="privacy-note"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 7V5a4 4 0 0 1 8 0v2m-9 0h10v7H3V7Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Images are processed to create your cutout</p>
+            <button class="remove-button" id="remove-button" type="button" disabled>
+              <span id="button-label">Remove background</span>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <p class="processing-note" id="processing-note" role="status" aria-live="polite" hidden></p>
+          <p class="error-message" id="error-message" role="alert" hidden></p>
+        </section>
+
+        <section class="result-panel" id="result-panel" aria-live="polite" hidden>
+          <div class="result-heading">
+            <div><span class="success-mark">✓</span><strong>Your cutout is ready</strong></div>
+            <button class="text-button" id="start-over-button" type="button">Start over</button>
+          </div>
+          <div class="result-grid">
+            <div class="result-card">
+              <span class="result-label">Original image</span>
+              <div class="result-preview original-preview"><img id="original-result-image" alt="Original uploaded image"></div>
+            </div>
+            <div class="result-card">
+              <span class="result-label">Background removed</span>
+              <div class="result-preview" id="result-preview"><img id="result-image" alt="Image with its background removed"></div>
+            </div>
+          </div>
+          <div class="background-options" aria-label="Background options">
+            <span>Preview background</span>
+            <button class="swatch active" type="button" data-background="checker" aria-label="Transparent checkerboard" aria-pressed="true"></button>
+            <button class="swatch swatch-white" type="button" data-background="white" aria-label="White background" aria-pressed="false"></button>
+            <button class="swatch swatch-dark" type="button" data-background="dark" aria-label="Dark background" aria-pressed="false"></button>
+            <label class="color-control">Custom color <input id="background-color" type="color" value="#dce8ff" aria-label="Choose a custom background color"></label>
+            <label class="background-image-button" for="background-image-input">Use your photo</label>
+            <input id="background-image-input" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+            <button id="clear-background-image" class="text-button" type="button" hidden>Remove photo</button>
+          </div>
+          <button class="download-button" id="download-button" type="button">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 4-4m-4 4L6 8m-3 6v3h14v-3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="download-label">Download transparent PNG</span>
+          </button>
+        </section>
+      </section>
+
+      <section class="steps" id="how-it-works" aria-label="How it works">
+        <article><span class="step-number">01</span><div><h3>Upload an image</h3><p>Choose a JPG, PNG, or WebP file</p></div></article>
+        <span class="step-line" aria-hidden="true"></span>
+        <article><span class="step-number">02</span><div><h3>Let AI make a cutout</h3><p>Preview your transparent result</p></div></article>
+        <span class="step-line" aria-hidden="true"></span>
+        <article><span class="step-number">03</span><div><h3>Download and use</h3><p>Save a transparent PNG or JPG</p></div></article>
+      </section>
+      <section class="feature-note">
+        <span class="feature-spark" aria-hidden="true">✦</span>
+        <div><h2>Designed for useful everyday edits</h2><p>Create clean product images, profile photos, and creative cutouts. Results depend on image quality, lighting, and subject-background contrast.</p></div>
+      </section>
+
+      <section class="faq-section" id="faq">
+        <div class="section-heading"><span class="eyebrow"><span></span> Helpful answers</span><h2>Frequently asked questions</h2><p>What to know before you create your cutout.</p></div>
+        <div class="faq-grid">
+          <article><h3>How do I remove a background?</h3><p>Choose a JPG, PNG, or WebP image, select Remove background, and wait for the result. The first request may take longer while the AI model starts.</p></article>
+          <article><h3>Can I add my own background?</h3><p>Yes. After processing, choose a color or select a background photo from your device. The photo stays in your browser and is not uploaded for background removal.</p></article>
+          <article><h3>Which file types can I download?</h3><p>A transparent result downloads as PNG. When you select a color or photo background, the combined image downloads as JPG.</p></article>
+          <article><h3>Will every image have perfect edges?</h3><p>AI results vary with image resolution, lighting, and how clearly the subject stands apart. Very fine hair, motion blur, or similar subject and background colors can need manual touch-up.</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>{{ settings.logo_text or 'CleanCut' }}</span>
+      <nav aria-label="Footer navigation"><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a>{% if admin_authenticated %}<a href="/admin">Admin</a>{% endif %}</nav>
+      <small>{{ settings.footer_credit or '© 2026 CleanCut. All Rights Reserved.' }}</small>
+    </footer>
+    <script src="{{ url_for('static', filename='app.js', v='6') }}" defer></script>
+  </body>
+</html>

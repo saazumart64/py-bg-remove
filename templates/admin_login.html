@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Login — {{ settings.logo_text or 'CleanCut' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='6') }}">
+  </head>
+  <body class="info-page">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span>{{ settings.logo_text or 'CleanCut' }}</span></a>
+      <a class="back-link" href="/">Back to the editor</a>
+    </header>
+    <main class="info-content admin-shell">
+      <span class="eyebrow"><span></span> Admin access</span>
+      <h1>Enter the <span>admin code</span></h1>
+      <p class="info-lead">This page lets you change the site logo, footer credit, and contact details.</p>
+
+      <div class="info-card admin-card">
+        <form method="post" class="admin-form">
+          <label for="admin_code">Admin code</label>
+          <input id="admin_code" name="admin_code" type="password" maxlength="20" placeholder="Enter 049822 or your configured code" required>
+          {% if error %}
+          <p class="admin-error">{{ error }}</p>
+          {% endif %}
+          <button type="submit" class="remove-button admin-submit">Login</button>
+        </form>
+      </div>
+    </main>
+    <footer><span>{{ settings.logo_text or 'CleanCut' }}</span><nav aria-label="Footer navigation"><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a></nav></footer>
+  </body>
+</html>

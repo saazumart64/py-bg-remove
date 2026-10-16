@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Panel — {{ settings.logo_text or 'CleanCut' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='6') }}">
+  </head>
+  <body class="info-page">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span>{{ settings.logo_text or 'CleanCut' }}</span></a>
+      <nav class="top-nav" aria-label="Admin actions">
+        <a href="/">Public site</a>
+        <a href="/admin/logout">Logout</a>
+      </nav>
+    </header>
+
+    <main class="info-content admin-shell">
+      <span class="eyebrow"><span></span> Site settings</span>
+      <h1>Admin <span>panel</span></h1>
+      <p class="info-lead">Update the public branding, contact details, and footer credit for the background remover site.</p>
+
+      {% if success %}
+      <div class="admin-success">The site settings were saved successfully.</div>
+      {% endif %}
+
+      <div class="info-card admin-card">
+        <form method="post" class="admin-form">
+          <div class="admin-fields">
+            <label for="site_name">Website name</label>
+            <input id="site_name" name="site_name" type="text" value="{{ settings.site_name or 'CleanCut' }}">
+
+            <label for="logo_text">Logo text</label>
+            <input id="logo_text" name="logo_text" type="text" value="{{ settings.logo_text or 'CleanCut' }}">
+
+            <label for="footer_credit">Footer credit</label>
+            <input id="footer_credit" name="footer_credit" type="text" value="{{ settings.footer_credit or '© 2026 CleanCut. All Rights Reserved.' }}">
+
+            <label for="contact_email">Contact email</label>
+            <input id="contact_email" name="contact_email" type="email" value="{{ settings.contact_email or '' }}" placeholder="you@example.com">
+
+            <label for="accent_color">Brand accent</label>
+            <input id="accent_color" name="accent_color" type="color" value="{{ settings.accent_color or '#5f7cff' }}">
+
+            <label for="admin_code">Admin login code</label>
+            <input id="admin_code" name="admin_code" type="password" value="{{ settings.admin_code or '049822' }}" placeholder="049822">
+          </div>
+
+          <div class="admin-actions">
+            <button type="submit" class="remove-button admin-submit">Save changes</button>
+            <a href="/" class="text-button">View website</a>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer><span>{{ settings.logo_text or 'CleanCut' }}</span><nav aria-label="Footer navigation"><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a><a href="/admin/logout">Logout</a></nav></footer>
+  </body>
+</html>

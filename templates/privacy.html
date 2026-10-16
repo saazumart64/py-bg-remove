@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Read how CleanCut handles uploaded images and basic technical information.">
+    <title>Privacy Notice — {{ settings.logo_text or 'CleanCut' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='5') }}">
+  </head>
+  <body class="info-page">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span>{{ settings.logo_text or 'CleanCut' }}</span></a>
+      <a class="back-link" href="/">Back to the editor</a>
+    </header>
+    <main class="info-content">
+      <span class="eyebrow"><span></span> Privacy</span>
+      <h1>Your images are for <span>your edit.</span></h1>
+      <p class="info-lead">This notice explains what information the {{ settings.logo_text or 'CleanCut' }} editor uses when you visit and process an image.</p>
+      <section class="info-card">
+        <h2>Images you process</h2>
+        <p>When you remove a background, your selected image is sent to the server running {{ settings.logo_text or 'CleanCut' }} so the AI model can process it. The application does not intentionally save uploaded images or generated cutouts after processing. Temporary files or request data may be handled by the hosting provider as part of normal server operation.</p>
+        <p>A background photo you choose after processing is handled in your browser to preview and create your download; it is not sent to the background-removal endpoint.</p>
+      </section>
+      <section class="info-card">
+        <h2>Technical information</h2>
+        <p>The web server may create standard access logs containing request details such as an IP address, request path, and timestamp. These logs help operate and troubleshoot the service. Hosting providers may process technical data under their own privacy terms.</p>
+      </section>
+      <section class="info-card">
+        <h2>Cookies, analytics, and advertising</h2>
+        <p>This {{ settings.logo_text or 'CleanCut' }} version does not intentionally set analytics or advertising cookies. If analytics, advertising, or other third-party services are added, this notice must be updated to describe those services and any consent choices required in the regions where the site is used.</p>
+      </section>
+      <section class="info-card">
+        <h2>Questions or changes</h2>
+        <p>For privacy questions, visit our <a href="/contact">contact page</a>. This notice should be reviewed and updated to reflect the actual hosting, logging, and third-party services used by the site owner.</p>
+        <p><strong>Last updated: October 16, 2026</strong></p>
+      </section>
+    </main>
+    <footer><span>{{ settings.logo_text or 'CleanCut' }}</span><nav aria-label="Footer navigation"><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a>{% if admin_authenticated %}<a href="/admin">Admin</a>{% endif %}</nav></footer>
+  </body>
+</html>

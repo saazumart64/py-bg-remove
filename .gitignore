@@ -1,0 +1,11 @@
+.venv/
+.venv*/
+__pycache__/
+*.py[cod]
+.env
+site_settings.json
+instance/
+models/
+*.onnx
+uploads/
+outputs/

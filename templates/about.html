@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Learn about CleanCut, a simple AI-powered image background remover.">
+    <title>About {{ settings.logo_text or 'CleanCut' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='5') }}">
+  </head>
+  <body class="info-page">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span>{{ settings.logo_text or 'CleanCut' }}</span></a>
+      <a class="back-link" href="/">Back to the editor</a>
+    </header>
+    <main class="info-content">
+      <span class="eyebrow"><span></span> About</span>
+      <h1>Image editing, made <span>simple.</span></h1>
+      <p class="info-lead">{{ settings.logo_text or 'CleanCut' }} is a straightforward image tool for removing a background and preparing a cutout for your next project.</p>
+      <section class="info-card">
+        <h2>What CleanCut does</h2>
+        <p>{{ settings.logo_text or 'CleanCut' }} uses an open-source AI image segmentation model to identify a prominent subject and create a transparent PNG. You can preview the result with a solid color or your own background photo, then download a transparent cutout or a flattened image.</p>
+        <p>It is designed for everyday product photos, portraits, and creative projects. Results depend on image quality and subject-background contrast, so we recommend reviewing each cutout before using it.</p>
+      </section>
+      <section class="info-card">
+        <h2>Our approach</h2>
+        <p>We aim to keep the editor clear, accessible, and honest about what automated image processing can and cannot do. {{ settings.logo_text or 'CleanCut' }} does not promise perfect results for every image.</p>
+      </section>
+      <p class="info-links"><a href="/privacy">Read our privacy notice</a><a href="/contact">Contact CleanCut</a></p>
+    </main>
+    <footer><span>{{ settings.logo_text or 'CleanCut' }}</span><nav aria-label="Footer navigation"><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a>{% if admin_authenticated %}<a href="/admin">Admin</a>{% endif %}</nav></footer>
+  </body>
+</html>

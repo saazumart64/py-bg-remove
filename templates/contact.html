@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Contact the CleanCut site owner with questions about the image editor.">
+    <title>Contact — {{ settings.logo_text or 'CleanCut' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='5') }}">
+  </head>
+  <body class="info-page">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span>{{ settings.logo_text or 'CleanCut' }}</span></a>
+      <a class="back-link" href="/">Back to the editor</a>
+    </header>
+    <main class="info-content">
+      <span class="eyebrow"><span></span> Contact</span>
+      <h1>We would like to <span>hear from you.</span></h1>
+      <p class="info-lead">Questions, feedback, or privacy requests? Contact the {{ settings.logo_text or 'CleanCut' }} site owner.</p>
+      <section class="info-card">
+        <h2>Get in touch</h2>
+        {% if settings.contact_email %}
+        <p>Email us at <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>.</p>
+        {% else %}
+        <p>The site owner has not configured a public contact email yet. Please check back later.</p>
+        {% endif %}
+      </section>
+    </main>
+    <footer><span>{{ settings.logo_text or 'CleanCut' }}</span><nav aria-label="Footer navigation"><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a>{% if admin_authenticated %}<a href="/admin">Admin</a>{% endif %}</nav></footer>
+  </body>
+</html>
